@@ -18,7 +18,7 @@ app.get('/client.js', (_, res) => {
   res.sendFile(path.join(path.resolve(), './src/client.js'))
 })
 
-app.get('*', async (_, res) => {
+app.get('/', async (_, res) => {
   try {
     const response = await axios.get(
       'https://jsonplaceholder.typicode.com/todos'
