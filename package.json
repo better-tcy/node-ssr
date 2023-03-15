@@ -1,10 +1,11 @@
 {
-  "name": "ssr",
+  "name": "node-ssr",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "build:client": "webpack",
     "serve": "nodemon ./src/serve.js"
   },
   "author": "",
@@ -15,6 +16,9 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "vue-loader": "^17.0.1",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1"
   }
 }

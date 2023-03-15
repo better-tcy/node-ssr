@@ -2,20 +2,24 @@ import path from 'path'
 
 import express from 'express'
 
-import { createApp } from 'vue'
+import { createSSRApp } from 'vue'
 import { renderToString } from 'vue/server-renderer'
 
 import axios from 'axios'
 
-import compile from './script/compile.js'
+import { CLIENT_ENTRY_NAME, OUTPUT_FILE_NAME } from '../config.js'
+
+import Component from '../dist/component.js'
 
 import entranceHtml from './template/entrance-html.js'
 
 const app = express()
 
-app.get('/client.js', (_, res) => {
+const clientPath = `/${OUTPUT_FILE_NAME}/${CLIENT_ENTRY_NAME}.js`
+
+app.get(clientPath, (_, res) => {
   res.setHeader('Content-Type', 'text/javascript')
-  res.sendFile(path.join(path.resolve(), './src/client.js'))
+  res.sendFile(path.join(path.resolve(), clientPath))
 })
 
 app.get('/', async (_, res) => {
@@ -25,11 +29,7 @@ app.get('/', async (_, res) => {
     )
     const data = response.data
 
-    const readFilePath = await compile('/src/view/Component.vue')
-
-    const component = await import(path.join(path.resolve(), readFilePath))
-
-    const vm = createApp(component.default, { list: data })
+    const vm = createSSRApp(Component, { list: data })
 
     const html = await renderToString(vm)
 
