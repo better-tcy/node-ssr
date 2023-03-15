@@ -4,3 +4,5 @@
 1. pnpm install
 1. pnpm run serve
 1. 浏览器访问http://localhost:3001/
+
+### 客户端打包版 可以切换到build分支 
